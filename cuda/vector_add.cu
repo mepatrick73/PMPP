@@ -1,4 +1,3 @@
-#include <__clang_cuda_builtin_vars.h>
 #include <cmath>
 #include <cstdio>
 #include <math.h>
@@ -22,9 +21,9 @@ void vec_add_gpu(float *A_h, float *B_h, float *C_h, int n) {
   int size = n * sizeof(float);
   float *A_d, *B_d, *C_d;
 
-  cudaMalloc((void **)&A_h, size);
-  cudaMalloc((void **)&B_h, size);
-  cudaMalloc((void **)&C_h, size);
+  cudaMalloc((void **)&A_d, size);
+  cudaMalloc((void **)&B_d, size);
+  cudaMalloc((void **)&C_d, size);
 
   cudaMemcpy(A_d, A_h, size, cudaMemcpyHostToDevice);
   cudaMemcpy(B_d, B_h, size, cudaMemcpyHostToDevice);
@@ -42,6 +41,7 @@ void vec_add_gpu(float *A_h, float *B_h, float *C_h, int n) {
 bool vec_compare(float *A_h, float *B_h, int n, float epsilon) {
   for (int i = 0; i < n; ++i) {
     if (fabs(A_h[i] - B_h[i]) > epsilon) {
+      printf("A : %2.6f and B : %2.6f at position %d", A_h[i], B_h[i], i);
       return false;
     }
   }
