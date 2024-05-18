@@ -1,0 +1,5 @@
+CompileFlags:
+  Add:
+    - --cuda-path=/usr/local/cuda-12.4
+    - -L/usr/local/cuda-12.4/lib
+    - -I/usr/local/cuda-12.4/include
